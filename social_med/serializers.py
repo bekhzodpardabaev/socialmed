@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import News, Ads, Categories
+from .models import News, Ads, Categories, MedicalCategory, Organization, Services, Apply
 
 
 class NewsSerializer(serializers.ModelSerializer):
@@ -18,3 +18,36 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Categories
         fields = ('name',)
+
+
+class OrganizationSerializer(serializers.ModelSerializer):
+    # category = serializers.CharField()
+
+    class Meta:
+        model = Organization
+        fields = ('name', 'medical_category', 'address', 'metro', 'start_time', 'end_time', 'latitude', 'longitude')
+
+
+class OrganizationDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organization
+        fields = ('name', 'address', 'metro', 'start_time', 'end_time')
+
+
+class ServiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Services
+        fields = ('title', 'subtitle', 'category')
+
+
+class ServiceDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Services
+        fields = ('title', 'subtitle', 'how_it_works', 'service_information', 'required_documents', 'organization',
+                  'responsible_person', 'law', 'contact')
+
+
+class ApplySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Apply
+        fields = ('service', 'text', 'status', 'date')
